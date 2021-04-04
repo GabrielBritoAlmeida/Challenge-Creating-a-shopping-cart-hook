@@ -40,9 +40,6 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
     return [];
   });
 
- useMemo(()=> {
-  localStorage.setItem("@RocketShoes:cart", JSON.stringify(cart));
- },[cart])
 
   const addProduct = async (productId: number) => {
     try {
@@ -74,6 +71,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       }
 
       setCart(updateCart);
+      localStorage.setItem("@RocketShoes:cart", JSON.stringify(updateCart));
       
     } catch {
       toast.error("Erro na adição do produto");
@@ -90,6 +88,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       if (productIndex >= 0) {
         updatedCart.splice(productIndex, 1);
         setCart(updatedCart);
+        localStorage.setItem("@RocketShoes:cart", JSON.stringify(updatedCart));
         
       } else {
         throw Error();
@@ -124,6 +123,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       if (productExists) {
         productExists.amount = amount;
         setCart(updatedCart);
+        localStorage.setItem("@RocketShoes:cart", JSON.stringify(updatedCart));
         
       } else {
         throw Error();
